@@ -1,41 +1,47 @@
-export default function Main() {
+import React from "react"
+import api from "../utils/api"
+import Card from "./Card"
 
-  function handleEditProfileClick() {
-    document.querySelector('.popup_edit_profile').classList.add('popup__opened');
-    document.querySelector('.popup__close-profile').addEventListener('click', () => {
-      document.querySelector('.popup_edit_profile').classList.remove('popup__opened');
-    })
-  }
+export default function Main(props) {
 
-  function handleAddPlaceClick() {
-    document.querySelector('.popup_add_card').classList.add('popup__opened');
-    document.querySelector('.popup__close-place').addEventListener('click', () => {
-      document.querySelector('.popup_add_card').classList.remove('popup__opened');
-    })
-  }
+  const [userName, setUserName] = React.useState('')
+  const [userDescription, setUserDescription] = React.useState('')
+  const [userAvatar, setUserAvatar] = React.useState('')
+  const [cards, setCards] = React.useState([])
 
-  function handleEditAvatarClick() {
-    document.querySelector('.popup_update_avatar').classList.add('popup__opened');
-    document.querySelector('.popup__close-avatar').addEventListener('click', () => {
-      document.querySelector('.popup_update_avatar').classList.remove('popup__opened');
+  React.useEffect(() => {
+    api.getUserInfo()
+    .then((data) => {
+      setUserName(data.name)
+      setUserDescription(data.about)
+      setUserAvatar(data.avatar)
     })
-  }
+    .catch(error => error.status)
+  })
+
+  React.useEffect(() => {
+    api.getDefaultCards()
+    .then((data) => {
+      setCards(data)
+    })
+  }, [])
 
   return (
     <main>
       <section className="profile">
-        <img className="profile__photo" src="#" alt="Аватар пользователя" />
-        <button className="profile__button" onClick={handleEditAvatarClick}></button>
+        <img className="profile__photo" src={userAvatar} alt="Аватар пользователя" />
+        <button className="profile__button" onClick={props.onEditAvatar}></button>
         <div className="profile__info">
           <div className="profile__info-profile">
-            <h1 className="profile__info-username"></h1>
-            <button className="profile__info-edit" onClick={handleEditProfileClick} aria-label="Редактировать профиль"></button>
+            <h1 className="profile__info-username">{userName}</h1>
+            <button className="profile__info-edit" onClick={props.onEditProfile} aria-label="Редактировать профиль"></button>
           </div>
-          <p className="profile__info-note"></p>
+          <p className="profile__info-note">{userDescription}</p>
         </div>
-        <button className="profile__added" onClick={handleAddPlaceClick} aria-label="Добавить публикацию"></button>
+        <button className="profile__added" onClick={props.onAddPlace} aria-label="Добавить публикацию"></button>
       </section>
       <div className="content">
+        {cards.map((card) => <Card key={card._id} onCardClick={props.onCardClick} card={card} />)}
       </div>
     </main>
   )

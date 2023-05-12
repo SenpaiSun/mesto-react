@@ -1,8 +1,8 @@
 export default function PopupWithForm(props) {
   return (
-    <div className={`popup popup_${props.name}`}>
+    <div className={`popup popup_${props.name} ${props.isOpen}`}>
       <div className="popup__page popup__page-item">
-        <button className="popup__close popup__close-profile" aria-label="Закрытие редактирования профиля"></button>
+        <button onClick={props.onClose} className="popup__close popup__close-profile" aria-label="Закрытие редактирования профиля"></button>
         <p className="popup__title">{props.title}</p>
         <form className="popup__form form" name={`form-${props.name}`} id="form-profile" novalidate>
           {props.children}
