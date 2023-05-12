@@ -8,7 +8,7 @@ export default function Main(props) {
   const [userDescription, setUserDescription] = React.useState('')
   const [userAvatar, setUserAvatar] = React.useState('')
   const [cards, setCards] = React.useState([])
-
+  
   React.useEffect(() => {
     api.getUserInfo()
     .then((data) => {
@@ -17,9 +17,6 @@ export default function Main(props) {
       setUserAvatar(data.avatar)
     })
     .catch(error => error.status)
-  })
-
-  React.useEffect(() => {
     api.getDefaultCards()
     .then((data) => {
       setCards(data)

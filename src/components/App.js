@@ -10,7 +10,7 @@ function App() {
   const [isEditProfilePopupOpen, setEditProfilePopupOpen] = React.useState(false);
   const [isAddPlacePopupOpen, setAddPlacePopupOpen] = React.useState(false);
   const [isEditAvatarPopupOpen, setEditAvatarPopupOpen] = React.useState(false);
-  const [selectedCard,setSelectedCard] = React.useState('')
+  const [selectedCard,setSelectedCard] = React.useState(null)
 
   function handleEditProfileClick() {
     setEditProfilePopupOpen(true)
@@ -28,7 +28,7 @@ function App() {
     setEditProfilePopupOpen(false)
     setAddPlacePopupOpen(false)
     setEditAvatarPopupOpen(false)
-    setSelectedCard('')
+    setSelectedCard(null)
   }
 
   function handleCardClick(card) {
@@ -36,28 +36,20 @@ function App() {
   }
 
   return (
-    <>
-      <html lang="ru">
-        <head>
-          <meta charset="UTF-8" />
-          <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-          <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-          <title>Mesto</title>
-        </head>
-        <body className="root">
+        <div className="root">
           <Header />
 
           <Main onEditProfile={handleEditProfileClick} onAddPlace={handleAddPlaceClick} onEditAvatar={handleEditAvatarClick} onCardClick={handleCardClick} />
-          
+
           <PopupWithForm onClose={closeAllPopups} isOpen={isEditProfilePopupOpen ? "popup__opened" : ""} name="edit_profile" title="Редактировать профиль" buttonText="Сохранить">
-            <input type="text" name="nameValue" className="popup__name form__input" id="input-name-profile" required minlength="2" maxlength="40" />
+            <input type="text" name="nameValue" className="popup__name form__input" id="input-name-profile" required minLength="2" maxLength="40" />
             <span className="popup__input-error input-name-profile-error"></span>
-            <input type="text" name="noteValue" className="popup__note form__input" id="input-note-profile" required minlength="2" maxlength="200" />
+            <input type="text" name="noteValue" className="popup__note form__input" id="input-note-profile" required minLength="2" maxLength="200" />
             <span className="popup__input-error input-note-profile-error"></span>
           </ PopupWithForm>
 
           <PopupWithForm onClose={closeAllPopups} isOpen={isAddPlacePopupOpen ? "popup__opened" : ""} name="add_card" title="Новое место" buttonText="Создать">
-            <input type="text" className="popup__name form__input" name="name" id="input-name-card" placeholder="Название" required minlength="2" maxlength="30" />
+            <input type="text" className="popup__name form__input" name="name" id="input-name-card" placeholder="Название" required minLength="2" maxLength="30" />
             <span className="popup__input-error input-name-card-error"></span>
             <input type="url" className="popup__note form__input" id="input-note-card" name="link" placeholder="Ссылка на картинку" required />
             <span className="popup__input-error input-note-card-error"></span>
@@ -88,9 +80,7 @@ function App() {
           </div>
           </template>
 
-      </body>
-    </html>
-  </>
+      </div>
   );
 }
 

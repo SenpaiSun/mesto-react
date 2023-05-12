@@ -4,7 +4,7 @@ export default function PopupWithForm(props) {
       <div className="popup__page popup__page-item">
         <button onClick={props.onClose} className="popup__close popup__close-profile" aria-label="Закрытие редактирования профиля"></button>
         <p className="popup__title">{props.title}</p>
-        <form className="popup__form form" name={`form-${props.name}`} id="form-profile" novalidate>
+        <form className="popup__form form" name={`form-${props.name}`} id="form-profile" noValidate>
           {props.children}
           <button className="popup__save popup__save-profile" aria-label="Сабмит формы">{props.buttonText}</button>
         </form>
