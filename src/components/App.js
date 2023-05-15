@@ -65,21 +65,6 @@ function App() {
           <ImagePopup onClose={closeAllPopups} card={selectedCard} />
 
           <Footer />
-
-          <template className="card-temlate">
-            <div className="content__card">
-              <img className="content__card-photo" src="#" alt="" />
-              <div className="content__card-info">
-              <h2 className="content__card-name"></h2>
-                <div className="content__like-info">
-                <button className="content__card-like" aria-label="Поставить лайк"></button>
-                <span className="content__like-value">0</span>
-              </div>
-              <button className="content__card-delete" aria-label="Удалить карточку"></button>
-            </div>
-          </div>
-          </template>
-
       </div>
   );
 }
