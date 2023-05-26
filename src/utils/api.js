@@ -12,6 +12,15 @@ export class Api {
       return Promise.reject(`Ошибка: ${res.status}`);
       };
 
+// Запрос на получение обновленных данных
+  changeLikeCardStatus(cardId, isLiked) {
+    if(isLiked) {
+      return this.likeCard(cardId)
+    } else {
+      return this.likeDelete(cardId)
+    }
+  }
+
 // Метод получения информации о пользователе
   getUserInfo() {
     return fetch(`${this._address}/users/me`, {
@@ -36,8 +45,8 @@ export class Api {
       method: 'PATCH',
       headers: this._headers,
       body: JSON.stringify({
-        name: data.nameValue,
-        about: data.noteValue
+        name: data.name,
+        about: data.about
       })
     })
     .then(res => this._checkError(res))
@@ -89,7 +98,7 @@ export class Api {
       method: 'PATCH',
       headers: this._headers,
       body: JSON.stringify({
-        avatar: data.link
+        avatar: data.avatar
       })
     })
     .then(res => this._checkError(res))
