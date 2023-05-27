@@ -1,5 +1,5 @@
 export default function Footer() {
-  let year = new Date()
+  const year = new Date()
 
   return (
     <footer className="footer">
